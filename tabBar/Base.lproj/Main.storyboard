@@ -18,6 +18,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XJs-fT-Af4" id="ECU-ey-Wm1">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.41568627450000001" green="0.71372549019999998" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -35,7 +36,7 @@
         <scene sceneID="R2T-cX-IAF">
             <objects>
                 <navigationController id="d7M-0b-SYp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="TabListIcon" id="tRz-cQ-HlY"/>
+                    <tabBarItem key="tabBarItem" title="" id="tRz-cQ-HlY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JRF-aY-UBz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -67,7 +68,4 @@
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="TabListIcon" width="27" height="65"/>
-    </resources>
 </document>

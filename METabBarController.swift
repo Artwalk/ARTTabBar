@@ -10,14 +10,6 @@ import UIKit
 
 @IBDesignable class TabBarController: UITabBarController {
     
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        hidden()
-    }
-    
-    
     let fakeTabBarView = MEBottomBarView.instanceMEBottomBarView()
     
     required init(coder aDecoder: NSCoder) {
@@ -30,28 +22,35 @@ import UIKit
         
         var frame = self.tabBar.frame
         
-        frame.size.height = 56
-        frame.origin.y = self.view.frame.size.height - 56
+        frame.size.height = 65
+        frame.origin.y = self.view.frame.size.height - 65
         
         self.tabBar.frame = frame
         
         (frame.origin.x, frame.origin.y ) = (0, 0)
         
         fakeTabBarView.frame = frame
+        
+        fakeTabBarView.layer.masksToBounds = true
     }
     
     func hidden() {
-        UIView.animateWithDuration(1, animations: { () -> Void in
-            
-            moveViewTo(self.tabBar, -self.tabBar.bounds.height)
-        })
-//        self.tabBar
+        moveWithAnimation(tabBar: self.tabBar, height: -self.tabBar.bounds.height)
     }
     
-}
-
-func moveViewTo(view:UIView, deltaY:CGFloat) {
-    var bounds = view.bounds
-    bounds.origin.y = deltaY
-    view.bounds = bounds
+    func show() {
+        moveWithAnimation(tabBar: self.tabBar, height: self.tabBar.bounds.height)
+    }
+    
+    func moveWithAnimation(#tabBar:UITabBar, height:CGFloat) {
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            self.moveViewTo(tabBar, deltaY: height)
+        })
+    }
+    
+    func moveViewTo(view:UIView, deltaY:CGFloat) {
+        var bounds = view.bounds
+        bounds.origin.y = deltaY
+        view.bounds = bounds
+    }
 }

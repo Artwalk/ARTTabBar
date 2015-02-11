@@ -8,18 +8,20 @@
 
 import UIKit
 
-class MEBottomBarView: UIView {
+@IBDesignable class MEBottomBarView: UIView {
+    
+    let height:CGFloat = 65
+    let weith:CGFloat = 0
     
     @IBOutlet weak var tabListButton: UIButton!
     @IBOutlet weak var cartOrderButton: UIButton!
-    @IBOutlet weak var settings: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
     
+    @IBOutlet weak var closeButton: UIButton!
     
-    let tabListIcon = UIImageView(image: UIImage(named: "TabListIcon"))
     
     override func drawRect(rect: CGRect) {
-        
-        tabListButton.addSubview(tabListIcon)
+        self.frame.size.height = height
     }
     
     class func instanceMEBottomBarView() -> MEBottomBarView {
@@ -28,48 +30,89 @@ class MEBottomBarView: UIView {
         
         return nibView.firstObject as MEBottomBarView
     }
-
+    
     @IBAction func bottomBarButtonOnClicked(sender: UIButton) {
-        dropIcons()
         
-        switch sender.tag {
-//        case 0:
-//        case 1:
-//        case 2:
-        default: 1
+        if sender.tag == 0 {
+            riseIcons()
+        } else {
+            dropIcons(sender.tag)
         }
     }
     
-    func dropIcons() {
+    
+    func riseIcons() {
         
-        UIView.animateWithDuration(0.2, delay: 0, options:UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-            UIView.animateWithDuration(0.1, animations: { () -> Void in
-                self.tabListIcon.alpha = 0
-            })
-            self.moveViewTo(self.tabListIcon, deltaY: -self.tabListButton.bounds.height)
-        }) { (finished) -> Void in
-            
+        moveCloseButton(0, deltaY: -height)
+        
+        riseIcon(tabListButton, delay: 0)
+        riseIcon(cartOrderButton, delay: 0.1)
+        riseIcon(settingsButton, delay: 0.2)
+    }
+    
+    func dropIcons(tag:Int) {
+        
+        dropCloseButton(CGFloat(tag-1), delay: 0.1+0.25)
+        switch tag {
+        case 1:
+            dropIcon(settingsButton, delay: 0)
+            dropIcon(cartOrderButton, delay: 0.1)
+            dropIcon(tabListButton, delay: 0.25)
+        case 2:
+            dropIcon(tabListButton, delay: 0)
+            dropIcon(cartOrderButton, delay: 0.25)
+            dropIcon(settingsButton, delay: 0.1)
+        case 3:
+            dropIcon(tabListButton, delay: 0)
+            dropIcon(cartOrderButton, delay: 0.1)
+            dropIcon(settingsButton, delay: 0.25)
+        default: 0
         }
         
-        UIView.animateWithDuration(0.2, delay: 0.1, options:UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
-            
+    }
+    
+    func riseIcon(button:UIButton, delay:NSTimeInterval) {
+        moveIcon(button, delay: delay, deltaY: -self.bounds.height)
+    }
+    
+    func dropCloseButton(tag:CGFloat, delay:NSTimeInterval) {
+        var frame = self.closeButton.layer.frame
+        let x:CGFloat = frame.width * tag
+        frame.origin.x = x
+        self.closeButton.layer.frame = frame
+        
+        moveCloseButton(delay, deltaY: height)
+    }
+    
+    func dropIcon(button:UIButton, delay:NSTimeInterval) {
+        moveIcon(button, delay: delay, deltaY: self.bounds.height)
+    }
+    
+    func moveCloseButton(delay:NSTimeInterval, deltaY:CGFloat) {
+        UIView.animateWithDuration(0.1, delay: delay, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            self.moveViewTo(self.closeButton, deltaY:deltaY)
+            self.closeButton.alpha = deltaY>0 ? 1:0
             }) { (finished) -> Void in
                 
         }
+    }
+    
+    func moveIcon(button:UIButton, delay:NSTimeInterval, deltaY:CGFloat) {
+        button.userInteractionEnabled = false
         
-        UIView.animateWithDuration(0.2, delay: 0.25, options:UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
-            
+        let duration:NSTimeInterval = 0.2
+        
+        UIView.animateWithDuration(duration, delay: delay, options:UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            self.moveViewTo(button, deltaY: deltaY)
             }) { (finished) -> Void in
-                
+                button.userInteractionEnabled = true
         }
-        
-        tabListButton.imageView
     }
     
     func moveViewTo(view:UIView, deltaY:CGFloat) {
-        var bounds = view.bounds
-        bounds.origin.y = deltaY
-        view.bounds = bounds
+        var frame = view.frame
+        frame.origin.y += deltaY
+        view.frame = frame
     }
     
 }
