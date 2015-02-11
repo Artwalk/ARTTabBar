@@ -12,6 +12,7 @@ import UIKit
     
     let height:CGFloat = 65
     let weith:CGFloat = 0
+    let animateDuration:NSTimeInterval = 0.2
     
     @IBOutlet weak var tabListButton: UIButton!
     @IBOutlet weak var cartOrderButton: UIButton!
@@ -42,7 +43,6 @@ import UIKit
     
     
     func riseIcons() {
-        
         moveCloseButton(0, deltaY: -height)
         
         riseIcon(tabListButton, delay: 0)
@@ -76,34 +76,50 @@ import UIKit
     }
     
     func dropCloseButton(tag:CGFloat, delay:NSTimeInterval) {
+        fixCloseButtonFrame(tag)
+        
+        moveCloseButton(delay, deltaY: height)
+    }
+    
+    func fixCloseButtonFrame(tag:CGFloat) {
+        
         var frame = self.closeButton.layer.frame
         let x:CGFloat = frame.width * tag
         frame.origin.x = x
         self.closeButton.layer.frame = frame
+    }
+    
+    func moveCloseButton(delay:NSTimeInterval, deltaY:CGFloat) {
         
-        moveCloseButton(delay, deltaY: height)
+        moveIcon(self.closeButton, duration: animateDuration, delay: delay, deltaY: deltaY) { () -> () in
+            UIView.addKeyframeWithRelativeStartTime(self.animateDuration/2, relativeDuration: self.animateDuration/2, animations: { () -> Void in
+                self.closeButton.alpha = deltaY>0 ? 1:0
+                self.layoutIfNeeded()
+            })
+        }
+        
     }
     
     func dropIcon(button:UIButton, delay:NSTimeInterval) {
         moveIcon(button, delay: delay, deltaY: self.bounds.height)
     }
     
-    func moveCloseButton(delay:NSTimeInterval, deltaY:CGFloat) {
-        UIView.animateWithDuration(0.1, delay: delay, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-            self.moveViewTo(self.closeButton, deltaY:deltaY)
-            self.closeButton.alpha = deltaY>0 ? 1:0
-            }) { (finished) -> Void in
-                
-        }
+    func moveIcon(let button:UIButton, let delay:NSTimeInterval, let  deltaY:CGFloat) {
+        moveIcon(button, duration: animateDuration/2, delay: delay, deltaY: deltaY, nil)
     }
     
-    func moveIcon(button:UIButton, delay:NSTimeInterval, deltaY:CGFloat) {
+    func moveIcon(let button:UIButton, let duration:NSTimeInterval,let delay:NSTimeInterval, let  deltaY:CGFloat, completion:(()->())?) {
         button.userInteractionEnabled = false
         
-        let duration:NSTimeInterval = 0.2
-        
-        UIView.animateWithDuration(duration, delay: delay, options:UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-            self.moveViewTo(button, deltaY: deltaY)
+        UIView.animateKeyframesWithDuration(duration, delay: delay, options: UIViewKeyframeAnimationOptions.CalculationModeCubic, animations: { () -> Void in
+            
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: duration, animations: { () -> Void in
+                self.moveViewTo(button, deltaY:deltaY)
+                self.layoutIfNeeded()
+            })
+            
+            completion?()
+            
             }) { (finished) -> Void in
                 button.userInteractionEnabled = true
         }
