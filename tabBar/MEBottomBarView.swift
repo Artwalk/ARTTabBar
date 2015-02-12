@@ -15,7 +15,7 @@ import UIKit
     
     let animateDuration:NSTimeInterval = 0.2
     let middleInterval:NSTimeInterval = 0.1
-    let lastInterval:NSTimeInterval = 0.25
+    let lastInterval:NSTimeInterval = 0.15
     
     @IBOutlet weak var tabListButton: UIButton!
     @IBOutlet weak var cartOrderButton: UIButton!
@@ -82,16 +82,26 @@ import UIKit
 
     func riseIcons(array:Array<Int>) {
         var delay:NSTimeInterval = 0
-        for index in array {
-            moveIcon(buttons[index], delay: delay, deltaY: -self.bounds.height)
+        moveIcon(buttons[array[0]], delay: delay, deltaY: -self.bounds.height)
+        
+        if !cartOrderButton.hidden {
             delay += middleInterval
+            moveIcon(buttons[array[1]], delay: delay, deltaY: -self.bounds.height)
         }
+        
+        delay += middleInterval
+        moveIcon(buttons[array[2]], delay: delay, deltaY: -self.bounds.height)
     }
 
     func dropIcons(array:Array<Int>) {
-        dropIcon(buttons[array[0]], delay: 0)
-        dropIcon(buttons[array[1]], delay: middleInterval)
-        dropIcon(buttons[array[2]], delay: lastInterval)
+        var delay:NSTimeInterval = 0
+        dropIcon(buttons[array[0]], delay: delay)
+        if !cartOrderButton.hidden {
+            delay += middleInterval
+            dropIcon(buttons[array[1]], delay: delay)
+        }
+        delay += lastInterval
+        dropIcon(buttons[array[2]], delay: delay)
     }
     
     func dropCloseButton(let tag:CGFloat, let delay:NSTimeInterval) {
