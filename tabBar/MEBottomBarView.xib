@@ -13,36 +13,28 @@
                 <button opaque="NO" tag="1" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0d-gG-uYf" userLabel="TabListButton">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="-6" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" image="TabListIcon">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <state key="normal" image="TabListIcon"/>
                     <connections>
                         <action selector="bottomBarButtonOnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="1xB-fz-eN2"/>
                     </connections>
                 </button>
                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRT-Kf-jY2">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <state key="normal" image="CartOrderIcon">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <state key="normal" image="CartOrderIcon"/>
                     <connections>
                         <action selector="bottomBarButtonOnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="lwT-Mi-qcI"/>
                     </connections>
                 </button>
                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wFQ-AH-L49" userLabel="SettingsButton">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <state key="normal" image="SettingsIcon">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <state key="normal" image="SettingsIcon"/>
                     <connections>
                         <action selector="bottomBarButtonOnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="vQm-6S-kWw"/>
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRp-rY-0Ce" userLabel="CloseButton">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <state key="normal" image="CloseIcon">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <state key="normal" image="CloseIcon"/>
                     <connections>
                         <action selector="bottomBarButtonOnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Rkn-Lh-X8Q"/>
                     </connections>
@@ -75,6 +67,10 @@
                     <exclude reference="CRp-rY-0Ce"/>
                 </mask>
                 <mask key="constraints">
+                    <exclude reference="Lee-f5-5qb"/>
+                    <exclude reference="Mbd-o0-YyD"/>
+                    <exclude reference="ZN3-74-Nqo"/>
+                    <exclude reference="omm-zj-0xd"/>
                     <exclude reference="l9e-bv-csy"/>
                     <exclude reference="se8-Wz-3ON"/>
                     <exclude reference="u8D-dN-2C5"/>
@@ -87,10 +83,6 @@
                     <exclude reference="J4e-YI-EBS"/>
                     <exclude reference="vig-Wt-kZf"/>
                     <exclude reference="vls-pv-8NY"/>
-                    <exclude reference="Lee-f5-5qb"/>
-                    <exclude reference="Mbd-o0-YyD"/>
-                    <exclude reference="ZN3-74-Nqo"/>
-                    <exclude reference="omm-zj-0xd"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -101,6 +93,10 @@
                     <include reference="CRp-rY-0Ce"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="Lee-f5-5qb"/>
+                    <include reference="Mbd-o0-YyD"/>
+                    <include reference="ZN3-74-Nqo"/>
+                    <include reference="omm-zj-0xd"/>
                     <include reference="l9e-bv-csy"/>
                     <include reference="se8-Wz-3ON"/>
                     <include reference="u8D-dN-2C5"/>
@@ -113,10 +109,6 @@
                     <include reference="J4e-YI-EBS"/>
                     <include reference="vig-Wt-kZf"/>
                     <include reference="vls-pv-8NY"/>
-                    <include reference="Lee-f5-5qb"/>
-                    <include reference="Mbd-o0-YyD"/>
-                    <include reference="ZN3-74-Nqo"/>
-                    <include reference="omm-zj-0xd"/>
                 </mask>
             </variation>
             <connections>
